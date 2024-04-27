@@ -55,3 +55,13 @@ echo "Go installation and environment setup is complete."
 
 # Display the Go version
 go version
+
+# Retrieve the GOPATH from the 'go env' command and append /bin to it
+gopath_bin=$(go env GOPATH)/bin
+
+# Check if GOPATH/bin is already set in PATH within .zshrc
+if ! grep -q "export PATH=\".*$gopath_bin.*\"" $HOME/.zshrc; then
+    echo "Adding GOPATH/bin to PATH in .zshrc"
+    # Update PATH setting to include GOPATH/bin
+    echo "export PATH=\"\$PATH:$gopath_bin\"" >> $HOME/.zshrc
+fi
